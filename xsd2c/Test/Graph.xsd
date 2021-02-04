@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2020 rel. 2 (http://www.altova.com) by Alex (Home) -->
+<!--Created with Liquid Studio 2020 (https://www.liquid-technologies.com)-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" id="Graph">
+	<xs:element name="Digraph" type="GraphType"/>
+	<xs:complexType name="NodeType">
+		<xs:attribute name="label" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="VertexType">
+		<xs:complexContent>
+			<xs:extension base="NodeType">
+				<xs:attribute name="id" type="xs:string"/>
+				<xs:attribute name="shape" type="ShapeType"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="EdgeType">
+		<xs:complexContent>
+			<xs:extension base="NodeType">
+				<xs:attribute name="id-src" type="xs:string"/>
+				<xs:attribute name="id-dst" type="xs:string"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GraphType">
+		<xs:complexContent>
+			<xs:extension base="NodeType">
+				<xs:sequence>
+					<xs:element name="Vertex" type="VertexType" maxOccurs="unbounded"/>
+					<xs:element name="Edge" type="EdgeType" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="ShapeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="rectangle"/>
+			<xs:enumeration value="ellipse"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
