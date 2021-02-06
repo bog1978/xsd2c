@@ -15,14 +15,16 @@ namespace xsd2c
             foreach (var schemaPath in Directory.GetFiles(path, "*.xsd"))
             {
                 var codePath = Path.ChangeExtension(schemaPath, "g.cs");
+                var @namespace = Path.GetFileNameWithoutExtension(schemaPath);
                 using var schemaReader = File.OpenText(schemaPath);
                 using var codeWriter = File.CreateText(codePath);
                 var schema = XmlSchema.Read(schemaReader, null);
-                var generator = new XsdClassGenerator(schema, "ToDo", GenerateProperties | EnableDataBinding)
+                var generator = new XsdClassGenerator(schema, @namespace, GenerateProperties | EnableDataBinding)
                 {
                     CodeModifiers =
                     {
-                        new MyCodeModifier(),
+                        new RenameTypeCodeModifier(),
+                        new ImplementVisitorCodeModifier(),
                     }
                 };
                 generator.Generate(codeWriter);

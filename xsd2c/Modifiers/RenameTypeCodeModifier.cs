@@ -1,10 +1,11 @@
 ﻿using System.CodeDom;
+
 using xsd2c.Generator;
 using xsd2c.Visitors;
 
 namespace xsd2c.Modifiers
 {
-    internal class MyCodeModifier : ICodeModifier
+    internal class RenameTypeCodeModifier : ICodeModifier
     {
         public void Execute(CodeNamespace codeNamespace)
         {

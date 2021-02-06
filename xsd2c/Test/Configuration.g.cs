@@ -1,4 +1,4 @@
-namespace ToDo {
+namespace Configuration {
     
     
     /// <remarks/>
@@ -8,7 +8,7 @@ namespace ToDo {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://BlueToque.ca/XsdToClasses.Configuration")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration", IsNullable=false)]
-    public partial class Configuration : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class Configuration : ConfigurationNodeBase, System.ComponentModel.INotifyPropertyChanged {
         
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
@@ -126,6 +126,10 @@ namespace ToDo {
                 this.RaisePropertyChanged("Any");
             }
         }
+        
+        public override object Accept(IConfigurationNodeVisitor visitor, object arg) {
+            return visitor.Visit(this, arg);
+        }
     }
     
     /// <remarks/>
@@ -135,7 +139,7 @@ namespace ToDo {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration", IsNullable=true)]
-    public partial class AssemblyType : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class AssemblyType : ConfigurationNodeBase, System.ComponentModel.INotifyPropertyChanged {
         
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
@@ -201,6 +205,10 @@ namespace ToDo {
                 this.RaisePropertyChanged("Assembly");
             }
         }
+        
+        public override object Accept(IConfigurationNodeVisitor visitor, object arg) {
+            return visitor.Visit(this, arg);
+        }
     }
     
     /// <remarks/>
@@ -210,7 +218,7 @@ namespace ToDo {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration", IsNullable=true)]
-    public partial class CodeModifiersType : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class CodeModifiersType : ConfigurationNodeBase, System.ComponentModel.INotifyPropertyChanged {
         
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
@@ -234,6 +242,10 @@ namespace ToDo {
                 this.RaisePropertyChanged("CodeModifier");
             }
         }
+        
+        public override object Accept(IConfigurationNodeVisitor visitor, object arg) {
+            return visitor.Visit(this, arg);
+        }
     }
     
     /// <remarks/>
@@ -243,7 +255,7 @@ namespace ToDo {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration", IsNullable=true)]
-    public partial class SchemaImporterExtensionsType : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class SchemaImporterExtensionsType : ConfigurationNodeBase, System.ComponentModel.INotifyPropertyChanged {
         
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
@@ -267,5 +279,25 @@ namespace ToDo {
                 this.RaisePropertyChanged("SchemaImporterExtension");
             }
         }
+        
+        public override object Accept(IConfigurationNodeVisitor visitor, object arg) {
+            return visitor.Visit(this, arg);
+        }
+    }
+    
+    public interface IConfigurationNodeVisitor {
+        
+        object Visit(Configuration node, object arg);
+        
+        object Visit(AssemblyType node, object arg);
+        
+        object Visit(CodeModifiersType node, object arg);
+        
+        object Visit(SchemaImporterExtensionsType node, object arg);
+    }
+    
+    public abstract class ConfigurationNodeBase {
+        
+        public abstract object Accept(IConfigurationNodeVisitor visitor, object arg);
     }
 }

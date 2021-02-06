@@ -1,4 +1,4 @@
-namespace ToDo {
+namespace Graph {
     
     
     /// <remarks/>
@@ -35,6 +35,10 @@ namespace ToDo {
                 this.edgeField = value;
                 this.RaisePropertyChanged("Edge");
             }
+        }
+        
+        public override object Accept(IGraphNodeVisitor visitor, object arg) {
+            return visitor.Visit(this, arg);
         }
     }
     
@@ -87,6 +91,10 @@ namespace ToDo {
                 this.RaisePropertyChanged("shapeSpecified");
             }
         }
+        
+        public override object Accept(IGraphNodeVisitor visitor, object arg) {
+            return visitor.Visit(this, arg);
+        }
     }
     
     /// <remarks/>
@@ -110,7 +118,7 @@ namespace ToDo {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=true)]
-    public partial class NodeType : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class NodeType : GraphNodeBase, System.ComponentModel.INotifyPropertyChanged {
         
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
@@ -133,6 +141,10 @@ namespace ToDo {
                 this.labelField = value;
                 this.RaisePropertyChanged("label");
             }
+        }
+        
+        public override object Accept(IGraphNodeVisitor visitor, object arg) {
+            return visitor.Visit(this, arg);
         }
     }
     
@@ -171,5 +183,25 @@ namespace ToDo {
                 this.RaisePropertyChanged("iddst");
             }
         }
+        
+        public override object Accept(IGraphNodeVisitor visitor, object arg) {
+            return visitor.Visit(this, arg);
+        }
+    }
+    
+    public interface IGraphNodeVisitor {
+        
+        object Visit(GraphType node, object arg);
+        
+        object Visit(VertexType1 node, object arg);
+        
+        object Visit(NodeType node, object arg);
+        
+        object Visit(EdgeType node, object arg);
+    }
+    
+    public abstract class GraphNodeBase {
+        
+        public abstract object Accept(IGraphNodeVisitor visitor, object arg);
     }
 }
