@@ -300,4 +300,23 @@ namespace Configuration {
         
         public abstract object Accept(IConfigurationNodeVisitor visitor, object arg);
     }
+    
+    public class ConfigurationNodeVisitor : IConfigurationNodeVisitor {
+        
+        public virtual object Visit(Configuration node, object arg) {
+            return default(object);
+        }
+        
+        public virtual object Visit(AssemblyType node, object arg) {
+            return default(object);
+        }
+        
+        public virtual object Visit(CodeModifiersType node, object arg) {
+            return default(object);
+        }
+        
+        public virtual object Visit(SchemaImporterExtensionsType node, object arg) {
+            return default(object);
+        }
+    }
 }

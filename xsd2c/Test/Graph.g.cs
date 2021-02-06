@@ -204,4 +204,23 @@ namespace Graph {
         
         public abstract object Accept(IGraphNodeVisitor visitor, object arg);
     }
+    
+    public class GraphNodeVisitor : IGraphNodeVisitor {
+        
+        public virtual object Visit(GraphType node, object arg) {
+            return default(object);
+        }
+        
+        public virtual object Visit(VertexType1 node, object arg) {
+            return default(object);
+        }
+        
+        public virtual object Visit(NodeType node, object arg) {
+            return default(object);
+        }
+        
+        public virtual object Visit(EdgeType node, object arg) {
+            return default(object);
+        }
+    }
 }
