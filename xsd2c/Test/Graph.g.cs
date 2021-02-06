@@ -19,6 +19,7 @@ namespace ToDo {
             }
             set {
                 this.vertexField = value;
+                this.RaisePropertyChanged("Vertex");
             }
         }
         
@@ -32,6 +33,7 @@ namespace ToDo {
             }
             set {
                 this.edgeField = value;
+                this.RaisePropertyChanged("Edge");
             }
         }
     }
@@ -54,6 +56,7 @@ namespace ToDo {
             }
             set {
                 this.idField = value;
+                this.RaisePropertyChanged("id");
             }
         }
         
@@ -67,6 +70,7 @@ namespace ToDo {
             }
             set {
                 this.shapeField = value;
+                this.RaisePropertyChanged("shape");
             }
         }
         
@@ -80,6 +84,7 @@ namespace ToDo {
             }
             set {
                 this.shapeFieldSpecified = value;
+                this.RaisePropertyChanged("shapeSpecified");
             }
         }
     }
@@ -105,7 +110,16 @@ namespace ToDo {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=true)]
-    public partial class NodeType {
+    public partial class NodeType : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
         
         private string labelField;
         
@@ -117,6 +131,7 @@ namespace ToDo {
             }
             set {
                 this.labelField = value;
+                this.RaisePropertyChanged("label");
             }
         }
     }
@@ -139,6 +154,7 @@ namespace ToDo {
             }
             set {
                 this.idsrcField = value;
+                this.RaisePropertyChanged("idsrc");
             }
         }
         
@@ -152,6 +168,7 @@ namespace ToDo {
             }
             set {
                 this.iddstField = value;
+                this.RaisePropertyChanged("iddst");
             }
         }
     }

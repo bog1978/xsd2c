@@ -8,7 +8,16 @@ namespace ToDo {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://BlueToque.ca/XsdToClasses.Configuration")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration", IsNullable=false)]
-    public partial class Configuration {
+    public partial class Configuration : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
         
         private bool enableDataBindingField;
         
@@ -19,6 +28,7 @@ namespace ToDo {
             }
             set {
                 this.enableDataBindingField = value;
+                this.RaisePropertyChanged("EnableDataBinding");
             }
         }
         
@@ -31,6 +41,7 @@ namespace ToDo {
             }
             set {
                 this.generateOrderField = value;
+                this.RaisePropertyChanged("GenerateOrder");
             }
         }
         
@@ -43,6 +54,7 @@ namespace ToDo {
             }
             set {
                 this.generatePropertiesField = value;
+                this.RaisePropertyChanged("GenerateProperties");
             }
         }
         
@@ -55,6 +67,7 @@ namespace ToDo {
             }
             set {
                 this.generateComplexTypesField = value;
+                this.RaisePropertyChanged("GenerateComplexTypes");
             }
         }
         
@@ -68,6 +81,7 @@ namespace ToDo {
             }
             set {
                 this.generateComplexTypesFieldSpecified = value;
+                this.RaisePropertyChanged("GenerateComplexTypesSpecified");
             }
         }
         
@@ -81,6 +95,7 @@ namespace ToDo {
             }
             set {
                 this.codeModifiersField = value;
+                this.RaisePropertyChanged("CodeModifiers");
             }
         }
         
@@ -94,6 +109,7 @@ namespace ToDo {
             }
             set {
                 this.schemaImporterExtensionsField = value;
+                this.RaisePropertyChanged("SchemaImporterExtensions");
             }
         }
         
@@ -107,6 +123,7 @@ namespace ToDo {
             }
             set {
                 this.anyField = value;
+                this.RaisePropertyChanged("Any");
             }
         }
     }
@@ -118,7 +135,16 @@ namespace ToDo {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration", IsNullable=true)]
-    public partial class AssemblyType {
+    public partial class AssemblyType : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
         
         private System.Xml.XmlElement anyField;
         
@@ -130,6 +156,7 @@ namespace ToDo {
             }
             set {
                 this.anyField = value;
+                this.RaisePropertyChanged("Any");
             }
         }
         
@@ -143,6 +170,7 @@ namespace ToDo {
             }
             set {
                 this.nameField = value;
+                this.RaisePropertyChanged("Name");
             }
         }
         
@@ -156,6 +184,7 @@ namespace ToDo {
             }
             set {
                 this.typeField = value;
+                this.RaisePropertyChanged("Type");
             }
         }
         
@@ -169,6 +198,7 @@ namespace ToDo {
             }
             set {
                 this.assemblyField = value;
+                this.RaisePropertyChanged("Assembly");
             }
         }
     }
@@ -180,7 +210,16 @@ namespace ToDo {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration", IsNullable=true)]
-    public partial class CodeModifiersType {
+    public partial class CodeModifiersType : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
         
         private AssemblyType[] codeModifierField;
         
@@ -192,6 +231,7 @@ namespace ToDo {
             }
             set {
                 this.codeModifierField = value;
+                this.RaisePropertyChanged("CodeModifier");
             }
         }
     }
@@ -203,7 +243,16 @@ namespace ToDo {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration", IsNullable=true)]
-    public partial class SchemaImporterExtensionsType {
+    public partial class SchemaImporterExtensionsType : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
         
         private AssemblyType[] schemaImporterExtensionField;
         
@@ -215,6 +264,7 @@ namespace ToDo {
             }
             set {
                 this.schemaImporterExtensionField = value;
+                this.RaisePropertyChanged("SchemaImporterExtension");
             }
         }
     }

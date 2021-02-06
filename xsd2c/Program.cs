@@ -18,7 +18,7 @@ namespace xsd2c
                 using var schemaReader = File.OpenText(schemaPath);
                 using var codeWriter = File.CreateText(codePath);
                 var schema = XmlSchema.Read(schemaReader, null);
-                var generator = new XsdClassGenerator(schema, "ToDo", GenerateProperties)
+                var generator = new XsdClassGenerator(schema, "ToDo", GenerateProperties | EnableDataBinding)
                 {
                     CodeModifiers =
                     {
