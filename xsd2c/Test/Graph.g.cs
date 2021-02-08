@@ -129,6 +129,19 @@ namespace Graph {
             }
         }
         
+        private AttrType attrField;
+        
+        /// <remarks/>
+        public AttrType Attr {
+            get {
+                return this.attrField;
+            }
+            set {
+                this.attrField = value;
+                this.RaisePropertyChanged("Attr");
+            }
+        }
+        
         private string labelField;
         
         /// <remarks/>
@@ -140,6 +153,98 @@ namespace Graph {
             set {
                 this.labelField = value;
                 this.RaisePropertyChanged("label");
+            }
+        }
+        
+        public override object Accept(IGraphNodeVisitor visitor, object arg) {
+            return visitor.Visit(this, arg);
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd2c", "1.0.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=true)]
+    public partial class AttrType : GraphNodeBase, System.ComponentModel.INotifyPropertyChanged {
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+        
+        private string colorField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Color {
+            get {
+                return this.colorField;
+            }
+            set {
+                this.colorField = value;
+                this.RaisePropertyChanged("Color");
+            }
+        }
+        
+        private string rankField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Rank {
+            get {
+                return this.rankField;
+            }
+            set {
+                this.rankField = value;
+                this.RaisePropertyChanged("Rank");
+            }
+        }
+        
+        private string shapeField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Shape {
+            get {
+                return this.shapeField;
+            }
+            set {
+                this.shapeField = value;
+                this.RaisePropertyChanged("Shape");
+            }
+        }
+        
+        private string widthField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Width {
+            get {
+                return this.widthField;
+            }
+            set {
+                this.widthField = value;
+                this.RaisePropertyChanged("Width");
+            }
+        }
+        
+        private string heightField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Height {
+            get {
+                return this.heightField;
+            }
+            set {
+                this.heightField = value;
+                this.RaisePropertyChanged("Height");
             }
         }
         
@@ -197,6 +302,8 @@ namespace Graph {
         
         object Visit(NodeType node, object arg);
         
+        object Visit(AttrType node, object arg);
+        
         object Visit(EdgeType node, object arg);
     }
     
@@ -208,6 +315,8 @@ namespace Graph {
     public class GraphNodeVisitor : IGraphNodeVisitor {
         
         public virtual object Visit(GraphType node, object arg) {
+            this.VisitAll(node.Vertex, arg);
+            this.VisitAll(node.Edge, arg);
             return default(object);
         }
         
@@ -216,11 +325,26 @@ namespace Graph {
         }
         
         public virtual object Visit(NodeType node, object arg) {
+            if ((node.Attr != null)) {
+                node.Attr.Accept(this, arg);
+            }
+            return default(object);
+        }
+        
+        public virtual object Visit(AttrType node, object arg) {
             return default(object);
         }
         
         public virtual object Visit(EdgeType node, object arg) {
             return default(object);
+        }
+        
+        private void VisitAll(GraphNodeBase[] items, object arg) {
+            if ((items != null)) {
+                for (int index = 0; (index < items.Length); index = (index + 1)) {
+                    items[index].Accept(this, arg);
+                }
+            }
         }
     }
 }

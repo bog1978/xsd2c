@@ -4,6 +4,9 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" id="Graph">
 	<xs:element name="Digraph" type="GraphType"/>
 	<xs:complexType name="NodeType">
+		<xs:sequence>
+			<xs:element name="Attr" type="AttrType"/>
+		</xs:sequence>
 		<xs:attribute name="label" type="xs:string"/>
 	</xs:complexType>
 	<xs:complexType name="VertexType">
@@ -38,4 +41,11 @@
 			<xs:enumeration value="ellipse"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:complexType name="AttrType">
+		<xs:attribute name="Color"/>
+		<xs:attribute name="Rank"/>
+		<xs:attribute name="Shape"/>
+		<xs:attribute name="Width"/>
+		<xs:attribute name="Height"/>
+	</xs:complexType>
 </xs:schema>

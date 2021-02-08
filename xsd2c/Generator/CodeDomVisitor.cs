@@ -55,10 +55,7 @@ namespace xsd2c.Generator
 
         public virtual TResult Visit(CodeDirective regionDirective, TArg arg) => throw new NotImplementedException();
 
-        public virtual TResult Visit(CodeArgumentReferenceExpression code, TArg arg)
-        {
-            return default;
-        }
+        public virtual TResult Visit(CodeArgumentReferenceExpression code, TArg arg) => default;
 
         public virtual TResult Visit(CodeArrayCreateExpression regionDirective, TArg arg) => throw new NotImplementedException();
 
@@ -130,24 +127,15 @@ namespace xsd2c.Generator
             return default;
         }
 
-        public virtual TResult Visit(CodePrimitiveExpression code, TArg arg)
-        {
-            return default;
-        }
+        public virtual TResult Visit(CodePrimitiveExpression code, TArg arg) => default;
 
         public virtual TResult Visit(CodePropertyReferenceExpression regionDirective, TArg arg) => throw new NotImplementedException();
 
-        public virtual TResult Visit(CodePropertySetValueReferenceExpression code, TArg arg)
-        {
-            return default;
-        }
+        public virtual TResult Visit(CodePropertySetValueReferenceExpression code, TArg arg) => default;
 
         public virtual TResult Visit(CodeSnippetExpression regionDirective, TArg arg) => throw new NotImplementedException();
 
-        public virtual TResult Visit(CodeThisReferenceExpression code, TArg arg)
-        {
-            return default;
-        }
+        public virtual TResult Visit(CodeThisReferenceExpression code, TArg arg) => default;
 
         public virtual TResult Visit(CodeTypeOfExpression code, TArg arg)
         {
@@ -157,10 +145,7 @@ namespace xsd2c.Generator
 
         public virtual TResult Visit(CodeTypeReferenceExpression regionDirective, TArg arg) => throw new NotImplementedException();
 
-        public virtual TResult Visit(CodeVariableReferenceExpression code, TArg arg)
-        {
-            return default;
-        }
+        public virtual TResult Visit(CodeVariableReferenceExpression code, TArg arg) => default;
 
         public virtual TResult Visit(CodeExpression regionDirective, TArg arg) => throw new NotImplementedException();
 

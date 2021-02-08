@@ -17,9 +17,6 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Test\Configuration.g.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
@@ -34,14 +31,14 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Test\Configuration.g.cs">
-      <DependentUpon>Configuration.xsd</DependentUpon>
-    </None>
     <None Include="Test\Graph.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Test\Configuration.g.cs">
+      <DependentUpon>Configuration.xsd</DependentUpon>
+    </Compile>
     <Compile Update="Test\Graph.g.cs">
       <DependentUpon>Graph.xsd</DependentUpon>
     </Compile>
