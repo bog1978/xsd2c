@@ -303,9 +303,23 @@ namespace Configuration {
     
     public class ConfigurationNodeVisitor : IConfigurationNodeVisitor {
         
+        private void AcceptAll(ConfigurationNodeBase[] items, object arg) {
+            if ((items != null)) {
+                for (int index = 0; (index < items.Length); index = (index + 1)) {
+                    items[index].Accept(this, arg);
+                }
+            }
+        }
+        
+        private void AcceptSingle(ConfigurationNodeBase item, object arg) {
+            if ((item != null)) {
+                item.Accept(this, arg);
+            }
+        }
+        
         public virtual object Visit(Configuration node, object arg) {
-            this.VisitAll(node.CodeModifiers, arg);
-            this.VisitAll(node.SchemaImporterExtensions, arg);
+            AcceptAll(node.CodeModifiers, arg);
+            AcceptAll(node.SchemaImporterExtensions, arg);
             return default(object);
         }
         
@@ -314,21 +328,13 @@ namespace Configuration {
         }
         
         public virtual object Visit(CodeModifiersType node, object arg) {
-            this.VisitAll(node.CodeModifier, arg);
+            AcceptAll(node.CodeModifier, arg);
             return default(object);
         }
         
         public virtual object Visit(SchemaImporterExtensionsType node, object arg) {
-            this.VisitAll(node.SchemaImporterExtension, arg);
+            AcceptAll(node.SchemaImporterExtension, arg);
             return default(object);
-        }
-        
-        private void VisitAll(ConfigurationNodeBase[] items, object arg) {
-            if ((items != null)) {
-                for (int index = 0; (index < items.Length); index = (index + 1)) {
-                    items[index].Accept(this, arg);
-                }
-            }
         }
     }
 }

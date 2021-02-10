@@ -314,9 +314,23 @@ namespace Graph {
     
     public class GraphNodeVisitor : IGraphNodeVisitor {
         
+        private void AcceptAll(GraphNodeBase[] items, object arg) {
+            if ((items != null)) {
+                for (int index = 0; (index < items.Length); index = (index + 1)) {
+                    items[index].Accept(this, arg);
+                }
+            }
+        }
+        
+        private void AcceptSingle(GraphNodeBase item, object arg) {
+            if ((item != null)) {
+                item.Accept(this, arg);
+            }
+        }
+        
         public virtual object Visit(GraphType node, object arg) {
-            this.VisitAll(node.Vertex, arg);
-            this.VisitAll(node.Edge, arg);
+            AcceptAll(node.Vertex, arg);
+            AcceptAll(node.Edge, arg);
             return default(object);
         }
         
@@ -325,9 +339,7 @@ namespace Graph {
         }
         
         public virtual object Visit(NodeType node, object arg) {
-            if ((node.Attr != null)) {
-                node.Attr.Accept(this, arg);
-            }
+            AcceptSingle(node.Attr, arg);
             return default(object);
         }
         
@@ -337,14 +349,6 @@ namespace Graph {
         
         public virtual object Visit(EdgeType node, object arg) {
             return default(object);
-        }
-        
-        private void VisitAll(GraphNodeBase[] items, object arg) {
-            if ((items != null)) {
-                for (int index = 0; (index < items.Length); index = (index + 1)) {
-                    items[index].Accept(this, arg);
-                }
-            }
         }
     }
 }
