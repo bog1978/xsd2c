@@ -1,4 +1,5 @@
 namespace Graph {
+    using System.Collections.Generic;
     
     
     /// <remarks/>
@@ -314,18 +315,17 @@ namespace Graph {
     
     public class GraphNodeVisitor : IGraphNodeVisitor {
         
-        private void AcceptAll(GraphNodeBase[] items, object arg) {
-            if ((items != null)) {
-                for (int index = 0; (index < items.Length); index = (index + 1)) {
-                    items[index].Accept(this, arg);
-                }
+        private void AcceptAll(IEnumerable<GraphNodeBase> items, object arg) {
+            if ((items == null)) {
+                return;
+            }
+            for (var en = items.GetEnumerator(); en.MoveNext(); ) {
+                AcceptSingle(en.Current, arg);
             }
         }
         
         private void AcceptSingle(GraphNodeBase item, object arg) {
-            if ((item != null)) {
-                item.Accept(this, arg);
-            }
+            item?.Accept(this, arg);
         }
         
         public virtual object Visit(GraphType node, object arg) {

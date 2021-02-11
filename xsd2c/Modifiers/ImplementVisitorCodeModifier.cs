@@ -14,6 +14,8 @@ namespace xsd2c.Modifiers
                 new ImplementationVisitorGenerator(codeNamespace),
             };
 
+            codeNamespace.Imports.Add(new CodeNamespaceImport("System.Collections.Generic"));
+
             foreach (var generator in generators)
                 generator.Generate();
         }

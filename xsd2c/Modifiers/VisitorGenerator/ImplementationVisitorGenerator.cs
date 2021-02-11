@@ -63,9 +63,7 @@ namespace xsd2c.Modifiers
                 method.Statements.Add(
                     new CodeMethodInvokeExpression(
                         new CodeMethodReferenceExpression(null, methodName),
-                        new CodePropertyReferenceExpression(
-                            new CodeVariableReferenceExpression("node"),
-                            p.Name),
+                        new CodePropertyReferenceExpression(new CodeVariableReferenceExpression("node"), p.Name),
                         new CodeVariableReferenceExpression("arg")));
             }
 
@@ -84,40 +82,30 @@ namespace xsd2c.Modifiers
                 Attributes = MemberAttributes.Private,
                 Parameters =
                 {
-                    new CodeParameterDeclarationExpression(new CodeTypeReference(BaseTypeName, 1), "items"),
-                    new CodeParameterDeclarationExpression(new CodeTypeReference(typeof(object)), "arg"),
+                    new CodeParameterDeclarationExpression(
+                        new CodeTypeReference("IEnumerable", new CodeTypeReference(BaseTypeName)), "items"),
+                    new CodeParameterDeclarationExpression(
+                        new CodeTypeReference(typeof(object)), "arg"),
                 },
                 Statements =
                 {
                     new CodeConditionStatement(
                         new CodeBinaryOperatorExpression(
                             new CodeVariableReferenceExpression("items"),
-                            CodeBinaryOperatorType.IdentityInequality,
+                            CodeBinaryOperatorType.IdentityEquality,
                             new CodePrimitiveExpression(null)),
-                        new CodeIterationStatement(
-                            new CodeVariableDeclarationStatement(
-                                typeof(int),
-                                "index",
-                                new CodePrimitiveExpression(0)),
-                            new CodeBinaryOperatorExpression(
-                                new CodeVariableReferenceExpression("index"),
-                                CodeBinaryOperatorType.LessThan,
-                                new CodePropertyReferenceExpression(
-                                    new CodeVariableReferenceExpression("items"), "Length")),
-                            new CodeAssignStatement(
-                                new CodeVariableReferenceExpression("index"),
-                                new CodeBinaryOperatorExpression(
-                                    new CodeVariableReferenceExpression("index"),
-                                    CodeBinaryOperatorType.Add,
-                                    new CodePrimitiveExpression(1))),
-                            new CodeExpressionStatement(
-                                new CodeMethodInvokeExpression(
-                                    new CodeArrayIndexerExpression(
-                                        new CodeVariableReferenceExpression("items"),
-                                        new CodeVariableReferenceExpression("index")),
-                                    AcceptMethodName,
-                                    new CodeThisReferenceExpression(),
-                                    new CodeVariableReferenceExpression("arg")))))
+                        new CodeMethodReturnStatement()),
+                    new CodeIterationStatement(
+                        new CodeVariableDeclarationStatement("var", "en",
+                            new CodeMethodInvokeExpression(new CodeVariableReferenceExpression("items"), "GetEnumerator")),
+                        new CodeMethodInvokeExpression(new CodeVariableReferenceExpression("en"), "MoveNext"),
+                        new CodeExpressionStatement(new CodeVariableReferenceExpression("")),
+                        new CodeExpressionStatement(
+                            new CodeMethodInvokeExpression(
+                                null,
+                                AcceptSingleMethodName,
+                                new CodePropertyReferenceExpression(new CodeVariableReferenceExpression("en"), "Current"),
+                                new CodeVariableReferenceExpression("arg"))))
                 }
             };
 
@@ -134,17 +122,12 @@ namespace xsd2c.Modifiers
                 },
                 Statements =
                 {
-                    new CodeConditionStatement(
-                        new CodeBinaryOperatorExpression(
-                            new CodeVariableReferenceExpression("item"),
-                            CodeBinaryOperatorType.IdentityInequality,
-                            new CodePrimitiveExpression(null)),
-                        new CodeExpressionStatement(
-                            new CodeMethodInvokeExpression(
-                                new CodeVariableReferenceExpression("item"),
-                                AcceptMethodName,
-                                new CodeThisReferenceExpression(),
-                                new CodeVariableReferenceExpression("arg"))))
+                    new CodeExpressionStatement(
+                        new CodeMethodInvokeExpression(
+                            new CodeVariableReferenceExpression("item?"),
+                            AcceptMethodName,
+                            new CodeThisReferenceExpression(),
+                            new CodeVariableReferenceExpression("arg")))
                 }
             };
     }
