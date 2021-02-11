@@ -50,20 +50,38 @@ namespace xsd2c.Modifiers
 
             foreach (CodeTypeMember member in type.Members)
             {
-                if (member is not CodeMemberProperty p)
+                if (!member.Attributes.HasFlag(MemberAttributes.Public)
+                    || member.Attributes.HasFlag(MemberAttributes.Static))
                     continue;
 
-                if (!typeMap.ContainsKey(p.Type.BaseType))
+                CodeTypeReference t;
+                string name;
+
+                switch (member)
+                {
+                    case CodeMemberProperty p:
+                        t = p.Type;
+                        name = p.Name;
+                        break;
+                    case CodeMemberField f:
+                        t = f.Type;
+                        name = f.Name;
+                        break;
+                    default:
+                        continue;
+                }
+
+                if (!typeMap.ContainsKey(t.BaseType))
                     continue;
 
-                var methodName = p.Type.ArrayRank == 0
+                var methodName = t.ArrayRank == 0
                     ? AcceptSingleMethodName
                     : AcceptAllMethodName;
 
                 method.Statements.Add(
                     new CodeMethodInvokeExpression(
                         new CodeMethodReferenceExpression(null, methodName),
-                        new CodePropertyReferenceExpression(new CodeVariableReferenceExpression("node"), p.Name),
+                        new CodePropertyReferenceExpression(new CodeVariableReferenceExpression("node"), name),
                         new CodeVariableReferenceExpression("arg")));
             }
 

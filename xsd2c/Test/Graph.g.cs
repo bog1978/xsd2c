@@ -20,7 +20,6 @@ namespace Graph {
             }
             set {
                 this.vertexField = value;
-                this.RaisePropertyChanged("Vertex");
             }
         }
         
@@ -34,7 +33,6 @@ namespace Graph {
             }
             set {
                 this.edgeField = value;
-                this.RaisePropertyChanged("Edge");
             }
         }
         
@@ -61,7 +59,6 @@ namespace Graph {
             }
             set {
                 this.idField = value;
-                this.RaisePropertyChanged("id");
             }
         }
         
@@ -75,7 +72,6 @@ namespace Graph {
             }
             set {
                 this.shapeField = value;
-                this.RaisePropertyChanged("shape");
             }
         }
         
@@ -89,7 +85,6 @@ namespace Graph {
             }
             set {
                 this.shapeFieldSpecified = value;
-                this.RaisePropertyChanged("shapeSpecified");
             }
         }
         
@@ -119,16 +114,7 @@ namespace Graph {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=true)]
-    public partial class NodeType : GraphNodeBase, System.ComponentModel.INotifyPropertyChanged {
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
+    public partial class NodeType : GraphNodeBase {
         
         private AttrType attrField;
         
@@ -139,7 +125,6 @@ namespace Graph {
             }
             set {
                 this.attrField = value;
-                this.RaisePropertyChanged("Attr");
             }
         }
         
@@ -153,7 +138,6 @@ namespace Graph {
             }
             set {
                 this.labelField = value;
-                this.RaisePropertyChanged("label");
             }
         }
         
@@ -168,16 +152,7 @@ namespace Graph {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=true)]
-    public partial class AttrType : GraphNodeBase, System.ComponentModel.INotifyPropertyChanged {
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
+    public partial class AttrType : GraphNodeBase {
         
         private string colorField;
         
@@ -189,7 +164,6 @@ namespace Graph {
             }
             set {
                 this.colorField = value;
-                this.RaisePropertyChanged("Color");
             }
         }
         
@@ -203,7 +177,6 @@ namespace Graph {
             }
             set {
                 this.rankField = value;
-                this.RaisePropertyChanged("Rank");
             }
         }
         
@@ -217,7 +190,6 @@ namespace Graph {
             }
             set {
                 this.shapeField = value;
-                this.RaisePropertyChanged("Shape");
             }
         }
         
@@ -231,7 +203,6 @@ namespace Graph {
             }
             set {
                 this.widthField = value;
-                this.RaisePropertyChanged("Width");
             }
         }
         
@@ -245,7 +216,6 @@ namespace Graph {
             }
             set {
                 this.heightField = value;
-                this.RaisePropertyChanged("Height");
             }
         }
         
@@ -272,7 +242,6 @@ namespace Graph {
             }
             set {
                 this.idsrcField = value;
-                this.RaisePropertyChanged("idsrc");
             }
         }
         
@@ -286,7 +255,6 @@ namespace Graph {
             }
             set {
                 this.iddstField = value;
-                this.RaisePropertyChanged("iddst");
             }
         }
         

@@ -9,16 +9,7 @@ namespace Configuration {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://BlueToque.ca/XsdToClasses.Configuration")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration", IsNullable=false)]
-    public partial class Configuration : ConfigurationNodeBase, System.ComponentModel.INotifyPropertyChanged {
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
+    public partial class Configuration : ConfigurationNodeBase {
         
         private bool enableDataBindingField;
         
@@ -29,7 +20,6 @@ namespace Configuration {
             }
             set {
                 this.enableDataBindingField = value;
-                this.RaisePropertyChanged("EnableDataBinding");
             }
         }
         
@@ -42,7 +32,6 @@ namespace Configuration {
             }
             set {
                 this.generateOrderField = value;
-                this.RaisePropertyChanged("GenerateOrder");
             }
         }
         
@@ -55,7 +44,6 @@ namespace Configuration {
             }
             set {
                 this.generatePropertiesField = value;
-                this.RaisePropertyChanged("GenerateProperties");
             }
         }
         
@@ -68,7 +56,6 @@ namespace Configuration {
             }
             set {
                 this.generateComplexTypesField = value;
-                this.RaisePropertyChanged("GenerateComplexTypes");
             }
         }
         
@@ -82,7 +69,6 @@ namespace Configuration {
             }
             set {
                 this.generateComplexTypesFieldSpecified = value;
-                this.RaisePropertyChanged("GenerateComplexTypesSpecified");
             }
         }
         
@@ -96,7 +82,6 @@ namespace Configuration {
             }
             set {
                 this.codeModifiersField = value;
-                this.RaisePropertyChanged("CodeModifiers");
             }
         }
         
@@ -110,7 +95,6 @@ namespace Configuration {
             }
             set {
                 this.schemaImporterExtensionsField = value;
-                this.RaisePropertyChanged("SchemaImporterExtensions");
             }
         }
         
@@ -124,7 +108,6 @@ namespace Configuration {
             }
             set {
                 this.anyField = value;
-                this.RaisePropertyChanged("Any");
             }
         }
         
@@ -140,16 +123,7 @@ namespace Configuration {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration", IsNullable=true)]
-    public partial class AssemblyType : ConfigurationNodeBase, System.ComponentModel.INotifyPropertyChanged {
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
+    public partial class AssemblyType : ConfigurationNodeBase {
         
         private System.Xml.XmlElement anyField;
         
@@ -161,7 +135,6 @@ namespace Configuration {
             }
             set {
                 this.anyField = value;
-                this.RaisePropertyChanged("Any");
             }
         }
         
@@ -175,7 +148,6 @@ namespace Configuration {
             }
             set {
                 this.nameField = value;
-                this.RaisePropertyChanged("Name");
             }
         }
         
@@ -189,7 +161,6 @@ namespace Configuration {
             }
             set {
                 this.typeField = value;
-                this.RaisePropertyChanged("Type");
             }
         }
         
@@ -203,7 +174,6 @@ namespace Configuration {
             }
             set {
                 this.assemblyField = value;
-                this.RaisePropertyChanged("Assembly");
             }
         }
         
@@ -219,16 +189,7 @@ namespace Configuration {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration", IsNullable=true)]
-    public partial class CodeModifiersType : ConfigurationNodeBase, System.ComponentModel.INotifyPropertyChanged {
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
+    public partial class CodeModifiersType : ConfigurationNodeBase {
         
         private AssemblyType[] codeModifierField;
         
@@ -240,7 +201,6 @@ namespace Configuration {
             }
             set {
                 this.codeModifierField = value;
-                this.RaisePropertyChanged("CodeModifier");
             }
         }
         
@@ -256,16 +216,7 @@ namespace Configuration {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration", IsNullable=true)]
-    public partial class SchemaImporterExtensionsType : ConfigurationNodeBase, System.ComponentModel.INotifyPropertyChanged {
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
+    public partial class SchemaImporterExtensionsType : ConfigurationNodeBase {
         
         private AssemblyType[] schemaImporterExtensionField;
         
@@ -277,7 +228,6 @@ namespace Configuration {
             }
             set {
                 this.schemaImporterExtensionField = value;
-                this.RaisePropertyChanged("SchemaImporterExtension");
             }
         }
         
