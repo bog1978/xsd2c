@@ -1,115 +1,49 @@
 namespace Configuration {
+    using System;
+    using System.Xml.Serialization;
+    using System.Xml;
+    using System.CodeDom.Compiler;
+    using System.Diagnostics;
+    using System.ComponentModel;
     using System.Collections.Generic;
     
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd2c", "1.0.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://BlueToque.ca/XsdToClasses.Configuration")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration", IsNullable=false)]
+    [GeneratedCode("xsd2c", "1.0.0")]
+    [Serializable()]
+    [DebuggerStepThrough()]
+    [DesignerCategory("code")]
+    [XmlType(AnonymousType=true, Namespace="http://BlueToque.ca/XsdToClasses.Configuration")]
+    [XmlRoot(Namespace="http://BlueToque.ca/XsdToClasses.Configuration", IsNullable=false)]
     public partial class Configuration : ConfigurationNodeBase {
         
-        private bool enableDataBindingField;
+        /// <remarks/>
+        public Boolean EnableDataBinding;
         
         /// <remarks/>
-        public bool EnableDataBinding {
-            get {
-                return this.enableDataBindingField;
-            }
-            set {
-                this.enableDataBindingField = value;
-            }
-        }
-        
-        private bool generateOrderField;
+        public Boolean GenerateOrder;
         
         /// <remarks/>
-        public bool GenerateOrder {
-            get {
-                return this.generateOrderField;
-            }
-            set {
-                this.generateOrderField = value;
-            }
-        }
-        
-        private bool generatePropertiesField;
+        public Boolean GenerateProperties;
         
         /// <remarks/>
-        public bool GenerateProperties {
-            get {
-                return this.generatePropertiesField;
-            }
-            set {
-                this.generatePropertiesField = value;
-            }
-        }
-        
-        private bool generateComplexTypesField;
+        public Boolean GenerateComplexTypes;
         
         /// <remarks/>
-        public bool GenerateComplexTypes {
-            get {
-                return this.generateComplexTypesField;
-            }
-            set {
-                this.generateComplexTypesField = value;
-            }
-        }
-        
-        private bool generateComplexTypesFieldSpecified;
+        [XmlIgnore()]
+        public Boolean GenerateComplexTypesSpecified;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool GenerateComplexTypesSpecified {
-            get {
-                return this.generateComplexTypesFieldSpecified;
-            }
-            set {
-                this.generateComplexTypesFieldSpecified = value;
-            }
-        }
-        
-        private AssemblyType[] codeModifiersField;
+        [XmlArrayItem("CodeModifier", IsNullable=false)]
+        public AssemblyType[] CodeModifiers;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("CodeModifier", IsNullable=false)]
-        public AssemblyType[] CodeModifiers {
-            get {
-                return this.codeModifiersField;
-            }
-            set {
-                this.codeModifiersField = value;
-            }
-        }
-        
-        private AssemblyType[] schemaImporterExtensionsField;
+        [XmlArrayItem("SchemaImporterExtension", IsNullable=false)]
+        public AssemblyType[] SchemaImporterExtensions;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("SchemaImporterExtension", IsNullable=false)]
-        public AssemblyType[] SchemaImporterExtensions {
-            get {
-                return this.schemaImporterExtensionsField;
-            }
-            set {
-                this.schemaImporterExtensionsField = value;
-            }
-        }
-        
-        private System.Xml.XmlElement anyField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAnyElementAttribute()]
-        public System.Xml.XmlElement Any {
-            get {
-                return this.anyField;
-            }
-            set {
-                this.anyField = value;
-            }
-        }
+        [XmlAnyElement()]
+        public XmlElement Any;
         
         public override object Accept(IConfigurationNodeVisitor visitor, object arg) {
             return visitor.Visit(this, arg);
@@ -117,65 +51,29 @@ namespace Configuration {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd2c", "1.0.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration", IsNullable=true)]
+    [GeneratedCode("xsd2c", "1.0.0")]
+    [Serializable()]
+    [DebuggerStepThrough()]
+    [DesignerCategory("code")]
+    [XmlType(Namespace="http://BlueToque.ca/XsdToClasses.Configuration")]
+    [XmlRoot(Namespace="http://BlueToque.ca/XsdToClasses.Configuration", IsNullable=true)]
     public partial class AssemblyType : ConfigurationNodeBase {
         
-        private System.Xml.XmlElement anyField;
+        /// <remarks/>
+        [XmlAnyElement()]
+        public XmlElement Any;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAnyElementAttribute()]
-        public System.Xml.XmlElement Any {
-            get {
-                return this.anyField;
-            }
-            set {
-                this.anyField = value;
-            }
-        }
-        
-        private string nameField;
+        [XmlAttribute()]
+        public String Name;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Name {
-            get {
-                return this.nameField;
-            }
-            set {
-                this.nameField = value;
-            }
-        }
-        
-        private string typeField;
+        [XmlAttribute()]
+        public String Type;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Type {
-            get {
-                return this.typeField;
-            }
-            set {
-                this.typeField = value;
-            }
-        }
-        
-        private string assemblyField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Assembly {
-            get {
-                return this.assemblyField;
-            }
-            set {
-                this.assemblyField = value;
-            }
-        }
+        [XmlAttribute()]
+        public String Assembly;
         
         public override object Accept(IConfigurationNodeVisitor visitor, object arg) {
             return visitor.Visit(this, arg);
@@ -183,26 +81,17 @@ namespace Configuration {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd2c", "1.0.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration", IsNullable=true)]
+    [GeneratedCode("xsd2c", "1.0.0")]
+    [Serializable()]
+    [DebuggerStepThrough()]
+    [DesignerCategory("code")]
+    [XmlType(Namespace="http://BlueToque.ca/XsdToClasses.Configuration")]
+    [XmlRoot(Namespace="http://BlueToque.ca/XsdToClasses.Configuration", IsNullable=true)]
     public partial class CodeModifiersType : ConfigurationNodeBase {
         
-        private AssemblyType[] codeModifierField;
-        
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("CodeModifier")]
-        public AssemblyType[] CodeModifier {
-            get {
-                return this.codeModifierField;
-            }
-            set {
-                this.codeModifierField = value;
-            }
-        }
+        [XmlElement("CodeModifier")]
+        public AssemblyType[] CodeModifier;
         
         public override object Accept(IConfigurationNodeVisitor visitor, object arg) {
             return visitor.Visit(this, arg);
@@ -210,26 +99,17 @@ namespace Configuration {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd2c", "1.0.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://BlueToque.ca/XsdToClasses.Configuration", IsNullable=true)]
+    [GeneratedCode("xsd2c", "1.0.0")]
+    [Serializable()]
+    [DebuggerStepThrough()]
+    [DesignerCategory("code")]
+    [XmlType(Namespace="http://BlueToque.ca/XsdToClasses.Configuration")]
+    [XmlRoot(Namespace="http://BlueToque.ca/XsdToClasses.Configuration", IsNullable=true)]
     public partial class SchemaImporterExtensionsType : ConfigurationNodeBase {
         
-        private AssemblyType[] schemaImporterExtensionField;
-        
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("SchemaImporterExtension")]
-        public AssemblyType[] SchemaImporterExtension {
-            get {
-                return this.schemaImporterExtensionField;
-            }
-            set {
-                this.schemaImporterExtensionField = value;
-            }
-        }
+        [XmlElement("SchemaImporterExtension")]
+        public AssemblyType[] SchemaImporterExtension;
         
         public override object Accept(IConfigurationNodeVisitor visitor, object arg) {
             return visitor.Visit(this, arg);

@@ -38,7 +38,7 @@ namespace xsd2c.Generator
             return default;
         }
 
-        public virtual TResult Visit(CodeNamespaceImport code, TArg arg) => throw new NotImplementedException();
+        public virtual TResult Visit(CodeNamespaceImport code, TArg arg) => default;
 
         public virtual TResult Visit(CodeTypeParameter code, TArg arg) => throw new NotImplementedException();
 

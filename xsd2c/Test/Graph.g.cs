@@ -1,40 +1,27 @@
 namespace Graph {
+    using System.Xml.Serialization;
+    using System.CodeDom.Compiler;
+    using System;
+    using System.Diagnostics;
+    using System.ComponentModel;
     using System.Collections.Generic;
     
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd2c", "1.0.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlRootAttribute("Digraph", Namespace="", IsNullable=false)]
+    [GeneratedCode("xsd2c", "1.0.0")]
+    [Serializable()]
+    [DebuggerStepThrough()]
+    [DesignerCategory("code")]
+    [XmlRoot("Digraph", Namespace="", IsNullable=false)]
     public partial class GraphType : NodeType {
         
-        private VertexType1[] vertexField;
+        /// <remarks/>
+        [XmlElement("Vertex")]
+        public VertexType[] Vertex;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("Vertex")]
-        public VertexType1[] Vertex {
-            get {
-                return this.vertexField;
-            }
-            set {
-                this.vertexField = value;
-            }
-        }
-        
-        private EdgeType[] edgeField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("Edge")]
-        public EdgeType[] Edge {
-            get {
-                return this.edgeField;
-            }
-            set {
-                this.edgeField = value;
-            }
-        }
+        [XmlElement("Edge")]
+        public EdgeType[] Edge;
         
         public override object Accept(IGraphNodeVisitor visitor, object arg) {
             return visitor.Visit(this, arg);
@@ -42,51 +29,24 @@ namespace Graph {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd2c", "1.0.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=true)]
-    public partial class VertexType1 : NodeType {
-        
-        private string idField;
+    [GeneratedCode("xsd2c", "1.0.0")]
+    [Serializable()]
+    [DebuggerStepThrough()]
+    [DesignerCategory("code")]
+    [XmlRoot(Namespace="", IsNullable=true)]
+    public partial class VertexType : NodeType {
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string id {
-            get {
-                return this.idField;
-            }
-            set {
-                this.idField = value;
-            }
-        }
-        
-        private ShapeType shapeField;
+        [XmlAttribute()]
+        public String id;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ShapeType shape {
-            get {
-                return this.shapeField;
-            }
-            set {
-                this.shapeField = value;
-            }
-        }
-        
-        private bool shapeFieldSpecified;
+        [XmlAttribute()]
+        public ShapeType shape;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool shapeSpecified {
-            get {
-                return this.shapeFieldSpecified;
-            }
-            set {
-                this.shapeFieldSpecified = value;
-            }
-        }
+        [XmlIgnore()]
+        public Boolean shapeSpecified;
         
         public override object Accept(IGraphNodeVisitor visitor, object arg) {
             return visitor.Visit(this, arg);
@@ -94,8 +54,8 @@ namespace Graph {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd2c", "1.0.0")]
-    [System.SerializableAttribute()]
+    [GeneratedCode("xsd2c", "1.0.0")]
+    [Serializable()]
     public enum ShapeType {
         
         /// <remarks/>
@@ -106,40 +66,22 @@ namespace Graph {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GraphType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(EdgeType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(VertexType1))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd2c", "1.0.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=true)]
+    [XmlInclude(typeof(GraphType))]
+    [XmlInclude(typeof(EdgeType))]
+    [XmlInclude(typeof(VertexType))]
+    [GeneratedCode("xsd2c", "1.0.0")]
+    [Serializable()]
+    [DebuggerStepThrough()]
+    [DesignerCategory("code")]
+    [XmlRoot(Namespace="", IsNullable=true)]
     public partial class NodeType : GraphNodeBase {
         
-        private AttrType attrField;
+        /// <remarks/>
+        public AttrType Attr;
         
         /// <remarks/>
-        public AttrType Attr {
-            get {
-                return this.attrField;
-            }
-            set {
-                this.attrField = value;
-            }
-        }
-        
-        private string labelField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string label {
-            get {
-                return this.labelField;
-            }
-            set {
-                this.labelField = value;
-            }
-        }
+        [XmlAttribute()]
+        public String label;
         
         public override object Accept(IGraphNodeVisitor visitor, object arg) {
             return visitor.Visit(this, arg);
@@ -147,77 +89,32 @@ namespace Graph {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd2c", "1.0.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=true)]
+    [GeneratedCode("xsd2c", "1.0.0")]
+    [Serializable()]
+    [DebuggerStepThrough()]
+    [DesignerCategory("code")]
+    [XmlRoot(Namespace="", IsNullable=true)]
     public partial class AttrType : GraphNodeBase {
         
-        private string colorField;
+        /// <remarks/>
+        [XmlAttribute()]
+        public String Color;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Color {
-            get {
-                return this.colorField;
-            }
-            set {
-                this.colorField = value;
-            }
-        }
-        
-        private string rankField;
+        [XmlAttribute()]
+        public String Rank;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Rank {
-            get {
-                return this.rankField;
-            }
-            set {
-                this.rankField = value;
-            }
-        }
-        
-        private string shapeField;
+        [XmlAttribute()]
+        public String Shape;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Shape {
-            get {
-                return this.shapeField;
-            }
-            set {
-                this.shapeField = value;
-            }
-        }
-        
-        private string widthField;
+        [XmlAttribute()]
+        public String Width;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Width {
-            get {
-                return this.widthField;
-            }
-            set {
-                this.widthField = value;
-            }
-        }
-        
-        private string heightField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Height {
-            get {
-                return this.heightField;
-            }
-            set {
-                this.heightField = value;
-            }
-        }
+        [XmlAttribute()]
+        public String Height;
         
         public override object Accept(IGraphNodeVisitor visitor, object arg) {
             return visitor.Visit(this, arg);
@@ -225,38 +122,20 @@ namespace Graph {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd2c", "1.0.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=true)]
+    [GeneratedCode("xsd2c", "1.0.0")]
+    [Serializable()]
+    [DebuggerStepThrough()]
+    [DesignerCategory("code")]
+    [XmlRoot(Namespace="", IsNullable=true)]
     public partial class EdgeType : NodeType {
         
-        private string idsrcField;
+        /// <remarks/>
+        [XmlAttribute("id-src")]
+        public String idsrc;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("id-src")]
-        public string idsrc {
-            get {
-                return this.idsrcField;
-            }
-            set {
-                this.idsrcField = value;
-            }
-        }
-        
-        private string iddstField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("id-dst")]
-        public string iddst {
-            get {
-                return this.iddstField;
-            }
-            set {
-                this.iddstField = value;
-            }
-        }
+        [XmlAttribute("id-dst")]
+        public String iddst;
         
         public override object Accept(IGraphNodeVisitor visitor, object arg) {
             return visitor.Visit(this, arg);
@@ -267,7 +146,7 @@ namespace Graph {
         
         object Visit(GraphType node, object arg);
         
-        object Visit(VertexType1 node, object arg);
+        object Visit(VertexType node, object arg);
         
         object Visit(NodeType node, object arg);
         
@@ -302,7 +181,7 @@ namespace Graph {
             return default(object);
         }
         
-        public virtual object Visit(VertexType1 node, object arg) {
+        public virtual object Visit(VertexType node, object arg) {
             return default(object);
         }
         

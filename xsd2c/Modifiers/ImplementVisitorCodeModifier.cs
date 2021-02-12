@@ -1,4 +1,6 @@
 ﻿using System.CodeDom;
+using System.Linq;
+
 using xsd2c.Generator;
 
 namespace xsd2c.Modifiers
@@ -14,7 +16,8 @@ namespace xsd2c.Modifiers
                 new ImplementationVisitorGenerator(codeNamespace),
             };
 
-            codeNamespace.Imports.Add(new CodeNamespaceImport("System.Collections.Generic"));
+            if(!codeNamespace.Imports.OfType<CodeNamespaceImport>().Any(x => x.Namespace == "System.Collections.Generic"))
+                codeNamespace.Imports.Add(new CodeNamespaceImport("System.Collections.Generic"));
 
             foreach (var generator in generators)
                 generator.Generate();
