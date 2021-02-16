@@ -1,201 +1,155 @@
 namespace Graph {
-    using System.Xml.Serialization;
-    using System.CodeDom.Compiler;
-    using System;
-    using System.Diagnostics;
-    using System.ComponentModel;
     using System.Collections.Generic;
+    using System.Xml.Serialization;
+    using System;
     
     
-    /// <remarks/>
-    [GeneratedCode("xsd2c", "1.0.0")]
-    [Serializable()]
-    [DebuggerStepThrough()]
-    [DesignerCategory("code")]
     [XmlRoot("Digraph", Namespace="", IsNullable=false)]
     public partial class GraphType : NodeType {
         
-        /// <remarks/>
         [XmlElement("Vertex")]
         public VertexType[] Vertex;
         
-        /// <remarks/>
         [XmlElement("Edge")]
         public EdgeType[] Edge;
         
-        public override object Accept(IGraphNodeVisitor visitor, object arg) {
+        public override Object Accept(IGraphNodeVisitor visitor, Object arg) {
             return visitor.Visit(this, arg);
         }
     }
     
-    /// <remarks/>
-    [GeneratedCode("xsd2c", "1.0.0")]
-    [Serializable()]
-    [DebuggerStepThrough()]
-    [DesignerCategory("code")]
     [XmlRoot(Namespace="", IsNullable=true)]
     public partial class VertexType : NodeType {
         
-        /// <remarks/>
         [XmlAttribute()]
         public String id;
         
-        /// <remarks/>
         [XmlAttribute()]
         public ShapeType shape;
         
-        /// <remarks/>
         [XmlIgnore()]
         public Boolean shapeSpecified;
         
-        public override object Accept(IGraphNodeVisitor visitor, object arg) {
+        public override Object Accept(IGraphNodeVisitor visitor, Object arg) {
             return visitor.Visit(this, arg);
         }
     }
     
-    /// <remarks/>
-    [GeneratedCode("xsd2c", "1.0.0")]
-    [Serializable()]
     public enum ShapeType {
         
-        /// <remarks/>
         rectangle,
         
-        /// <remarks/>
         ellipse,
     }
     
-    /// <remarks/>
     [XmlInclude(typeof(GraphType))]
     [XmlInclude(typeof(EdgeType))]
     [XmlInclude(typeof(VertexType))]
-    [GeneratedCode("xsd2c", "1.0.0")]
-    [Serializable()]
-    [DebuggerStepThrough()]
-    [DesignerCategory("code")]
     [XmlRoot(Namespace="", IsNullable=true)]
     public partial class NodeType : GraphNodeBase {
         
-        /// <remarks/>
         public AttrType Attr;
         
-        /// <remarks/>
         [XmlAttribute()]
         public String label;
         
-        public override object Accept(IGraphNodeVisitor visitor, object arg) {
+        public override Object Accept(IGraphNodeVisitor visitor, Object arg) {
             return visitor.Visit(this, arg);
         }
     }
     
-    /// <remarks/>
-    [GeneratedCode("xsd2c", "1.0.0")]
-    [Serializable()]
-    [DebuggerStepThrough()]
-    [DesignerCategory("code")]
     [XmlRoot(Namespace="", IsNullable=true)]
     public partial class AttrType : GraphNodeBase {
         
-        /// <remarks/>
         [XmlAttribute()]
         public String Color;
         
-        /// <remarks/>
         [XmlAttribute()]
         public String Rank;
         
-        /// <remarks/>
         [XmlAttribute()]
         public String Shape;
         
-        /// <remarks/>
         [XmlAttribute()]
         public String Width;
         
-        /// <remarks/>
         [XmlAttribute()]
         public String Height;
         
-        public override object Accept(IGraphNodeVisitor visitor, object arg) {
+        public override Object Accept(IGraphNodeVisitor visitor, Object arg) {
             return visitor.Visit(this, arg);
         }
     }
     
-    /// <remarks/>
-    [GeneratedCode("xsd2c", "1.0.0")]
-    [Serializable()]
-    [DebuggerStepThrough()]
-    [DesignerCategory("code")]
     [XmlRoot(Namespace="", IsNullable=true)]
     public partial class EdgeType : NodeType {
         
-        /// <remarks/>
         [XmlAttribute("id-src")]
         public String idsrc;
         
-        /// <remarks/>
         [XmlAttribute("id-dst")]
         public String iddst;
         
-        public override object Accept(IGraphNodeVisitor visitor, object arg) {
+        public override Object Accept(IGraphNodeVisitor visitor, Object arg) {
             return visitor.Visit(this, arg);
         }
     }
     
     public interface IGraphNodeVisitor {
         
-        object Visit(GraphType node, object arg);
+        Object Visit(GraphType node, Object arg);
         
-        object Visit(VertexType node, object arg);
+        Object Visit(VertexType node, Object arg);
         
-        object Visit(NodeType node, object arg);
+        Object Visit(NodeType node, Object arg);
         
-        object Visit(AttrType node, object arg);
+        Object Visit(AttrType node, Object arg);
         
-        object Visit(EdgeType node, object arg);
+        Object Visit(EdgeType node, Object arg);
     }
     
     public abstract class GraphNodeBase {
         
-        public abstract object Accept(IGraphNodeVisitor visitor, object arg);
+        public abstract Object Accept(IGraphNodeVisitor visitor, Object arg);
     }
     
     public class GraphNodeVisitor : IGraphNodeVisitor {
         
-        private void AcceptAll(IEnumerable<GraphNodeBase> items, object arg) {
-            if ((items == null)) {
-                return;
+        private Object AcceptAll(IEnumerable<GraphNodeBase> items, Object arg) {
+            if ((items != null)) {
+                for (var en = items.GetEnumerator(); en.MoveNext(); ) {
+                    AcceptSingle(en.Current, arg);
+                }
             }
-            for (var en = items.GetEnumerator(); en.MoveNext(); ) {
-                AcceptSingle(en.Current, arg);
-            }
+            return default(Object);
         }
         
-        private void AcceptSingle(GraphNodeBase item, object arg) {
+        private Object AcceptSingle(GraphNodeBase item, Object arg) {
             item?.Accept(this, arg);
+            return default(Object);
         }
         
-        public virtual object Visit(GraphType node, object arg) {
+        public virtual Object Visit(GraphType node, Object arg) {
             AcceptAll(node.Vertex, arg);
             AcceptAll(node.Edge, arg);
-            return default(object);
+            return default(Object);
         }
         
-        public virtual object Visit(VertexType node, object arg) {
-            return default(object);
+        public virtual Object Visit(VertexType node, Object arg) {
+            return default(Object);
         }
         
-        public virtual object Visit(NodeType node, object arg) {
+        public virtual Object Visit(NodeType node, Object arg) {
             AcceptSingle(node.Attr, arg);
-            return default(object);
+            return default(Object);
         }
         
-        public virtual object Visit(AttrType node, object arg) {
-            return default(object);
+        public virtual Object Visit(AttrType node, Object arg) {
+            return default(Object);
         }
         
-        public virtual object Visit(EdgeType node, object arg) {
-            return default(object);
+        public virtual Object Visit(EdgeType node, Object arg) {
+            return default(Object);
         }
     }
 }

@@ -4,6 +4,96 @@ namespace xsd2c.Generator
 {
     public static class CodeDomExt
     {
+        public static void AcceptAll<TArg, TResult>(this CodeAttributeDeclarationCollection items, CodeDomVisitor<TArg, TResult> visitor, TArg arg)
+        {
+            if (items != null)
+                foreach (CodeAttributeDeclaration item in items)
+                    item.Accept(visitor, arg);
+        }
+
+        public static void AcceptAll<TArg, TResult>(this CodeAttributeArgumentCollection items, CodeDomVisitor<TArg, TResult> visitor, TArg arg)
+        {
+            if (items != null)
+                foreach (CodeAttributeArgument item in items)
+                    item.Accept(visitor, arg);
+        }
+
+        public static void AcceptAll<TArg, TResult>(this CodeNamespaceImportCollection items, CodeDomVisitor<TArg, TResult> visitor, TArg arg)
+        {
+            if (items != null)
+                foreach (CodeNamespaceImport item in items)
+                    item.Accept(visitor, arg);
+        }
+
+        public static void AcceptAll<TArg, TResult>(this CodeTypeDeclarationCollection items, CodeDomVisitor<TArg, TResult> visitor, TArg arg)
+        {
+            if (items != null)
+                foreach (CodeTypeDeclaration item in items)
+                    item.Accept(visitor, arg);
+        }
+
+        public static void AcceptAll<TArg, TResult>(this CodeCommentStatementCollection items, CodeDomVisitor<TArg, TResult> visitor, TArg arg)
+        {
+            if (items != null)
+                foreach (CodeCommentStatement item in items)
+                    item.Accept(visitor, arg);
+        }
+
+        public static void AcceptAll<TArg, TResult>(this CodeDirectiveCollection items, CodeDomVisitor<TArg, TResult> visitor, TArg arg)
+        {
+            if (items != null)
+                foreach (CodeDirective item in items)
+                    item.Accept(visitor, arg);
+        }
+
+        public static void AcceptAll<TArg, TResult>(this CodeTypeReferenceCollection items, CodeDomVisitor<TArg, TResult> visitor, TArg arg)
+        {
+            if (items != null)
+                foreach (CodeTypeReference item in items)
+                    item.Accept(visitor, arg);
+        }
+
+        public static void AcceptAll<TArg, TResult>(this CodeExpressionCollection items, CodeDomVisitor<TArg, TResult> visitor, TArg arg)
+        {
+            if (items != null)
+                foreach (CodeExpression item in items)
+                    item.Accept(visitor, arg);
+        }
+
+        public static void AcceptAll<TArg, TResult>(this CodeStatementCollection items, CodeDomVisitor<TArg, TResult> visitor, TArg arg)
+        {
+            if (items != null)
+                foreach (CodeStatement item in items)
+                    item.Accept(visitor, arg);
+        }
+
+        public static void AcceptAll<TArg, TResult>(this CodeParameterDeclarationExpressionCollection items, CodeDomVisitor<TArg, TResult> visitor, TArg arg)
+        {
+            if (items != null)
+                foreach (CodeParameterDeclarationExpression item in items)
+                    item.Accept(visitor, arg);
+        }
+
+        public static void AcceptAll<TArg, TResult>(this CodeTypeParameterCollection items, CodeDomVisitor<TArg, TResult> visitor, TArg arg)
+        {
+            if (items != null)
+                foreach (CodeTypeParameter item in items)
+                    item.Accept(visitor, arg);
+        }
+
+        public static void AcceptAll<TArg, TResult>(this CodeTypeMemberCollection items, CodeDomVisitor<TArg, TResult> visitor, TArg arg)
+        {
+            if (items != null)
+                foreach (CodeTypeMember item in items)
+                    item.Accept(visitor, arg);
+        }
+
+        public static TResult Accept<TArg, TResult>(this CodeAttributeDeclaration code, CodeDomVisitor<TArg, TResult> visitor, TArg arg) => visitor.Visit(code, arg);
+
+        public static TResult Accept<TArg, TResult>(this CodeAttributeArgument code, CodeDomVisitor<TArg, TResult> visitor, TArg arg) => visitor.Visit(code, arg);
+
+        public static TResult Accept<TArg, TResult>(this CodeLinePragma code, CodeDomVisitor<TArg, TResult> visitor, TArg arg) => visitor.Visit(code, arg);
+
         public static TResult Accept<TArg, TResult>(this CodeObject obj, CodeDomVisitor<TArg, TResult> visitor, TArg arg)
         {
             if (obj == null)

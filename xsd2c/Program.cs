@@ -23,9 +23,10 @@ namespace xsd2c
                 {
                     CodeModifiers =
                     {
+                        new RemoveAttrsCodeModifier(),
                         //new RenameTypeCodeModifier(),
-                        new SimplfyCodeModifier(),
                         new ImplementVisitorCodeModifier(),
+                        new SimplifyCodeModifier(),
                     }
                 };
                 generator.Generate(codeWriter);

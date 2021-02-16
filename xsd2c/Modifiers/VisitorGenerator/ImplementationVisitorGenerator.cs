@@ -96,7 +96,7 @@ namespace xsd2c.Modifiers
             new()
             {
                 Name = AcceptAllMethodName,
-                //ReturnType = new CodeTypeReference(typeof(object)),
+                ReturnType = new CodeTypeReference(typeof(object)),
                 Attributes = MemberAttributes.Private,
                 Parameters =
                 {
@@ -110,20 +110,22 @@ namespace xsd2c.Modifiers
                     new CodeConditionStatement(
                         new CodeBinaryOperatorExpression(
                             new CodeVariableReferenceExpression("items"),
-                            CodeBinaryOperatorType.IdentityEquality,
+                            CodeBinaryOperatorType.IdentityInequality,
                             new CodePrimitiveExpression(null)),
-                        new CodeMethodReturnStatement()),
-                    new CodeIterationStatement(
-                        new CodeVariableDeclarationStatement("var", "en",
-                            new CodeMethodInvokeExpression(new CodeVariableReferenceExpression("items"), "GetEnumerator")),
-                        new CodeMethodInvokeExpression(new CodeVariableReferenceExpression("en"), "MoveNext"),
-                        new CodeExpressionStatement(new CodeVariableReferenceExpression("")),
-                        new CodeExpressionStatement(
-                            new CodeMethodInvokeExpression(
-                                null,
-                                AcceptSingleMethodName,
-                                new CodePropertyReferenceExpression(new CodeVariableReferenceExpression("en"), "Current"),
-                                new CodeVariableReferenceExpression("arg"))))
+                        new CodeIterationStatement(
+                            new CodeVariableDeclarationStatement("var", "en",
+                                new CodeMethodInvokeExpression(new CodeVariableReferenceExpression("items"), "GetEnumerator")),
+                            new CodeMethodInvokeExpression(new CodeVariableReferenceExpression("en"), "MoveNext"),
+                            new CodeExpressionStatement(new CodeVariableReferenceExpression("")),
+                            new CodeExpressionStatement(
+                                new CodeMethodInvokeExpression(
+                                    null,
+                                    AcceptSingleMethodName,
+                                    new CodePropertyReferenceExpression(new CodeVariableReferenceExpression("en"), "Current"),
+                                    new CodeVariableReferenceExpression("arg"))))),
+                    new CodeMethodReturnStatement(
+                        new CodeDefaultValueExpression(
+                            new CodeTypeReference(typeof(object))))
                 }
             };
 
@@ -131,7 +133,7 @@ namespace xsd2c.Modifiers
             new()
             {
                 Name = AcceptSingleMethodName,
-                //ReturnType = new CodeTypeReference(typeof(object)),
+                ReturnType = new CodeTypeReference(typeof(object)),
                 Attributes = MemberAttributes.Private,
                 Parameters =
                 {
@@ -145,7 +147,10 @@ namespace xsd2c.Modifiers
                             new CodeVariableReferenceExpression("item?"),
                             AcceptMethodName,
                             new CodeThisReferenceExpression(),
-                            new CodeVariableReferenceExpression("arg")))
+                            new CodeVariableReferenceExpression("arg"))),
+                    new CodeMethodReturnStatement(
+                        new CodeDefaultValueExpression(
+                            new CodeTypeReference(typeof(object))))
                 }
             };
     }
