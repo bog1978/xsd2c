@@ -13,7 +13,7 @@ namespace xsd2c.Modifiers
     {
         private readonly CodeNamespace _codeNamespace;
 
-        private List<string> _attrsToRemove = new()
+        private readonly List<string> _attrsToRemove = new()
         {
             nameof(GeneratedCodeAttribute),
             nameof(SerializableAttribute),

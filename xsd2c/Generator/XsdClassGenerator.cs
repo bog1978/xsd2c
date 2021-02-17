@@ -2,7 +2,7 @@ using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.Diagnostics;
+//using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Xml.Schema;
@@ -16,15 +16,16 @@ namespace xsd2c.Generator
         #region Константы и поля
 
         private readonly CodeNamespace _codeNamespace;
+        private readonly List<GenerationError> _errors;
+        private readonly CodeGenerationOptions _options;
         private readonly XmlSchema _schema;
         private readonly List<XmlSchema> _schemaList;
-        private readonly CodeGenerationOptions _options;
 
         #endregion
 
         #region Конструкторы
 
-        public XsdClassGenerator(XmlSchema schema, string @namespace = null,
+        public XsdClassGenerator(XmlSchema schema, string @namespace,
             CodeGenerationOptions options = CodeGenerationOptions.None)
         {
             _schema = schema ?? throw new ArgumentNullException(nameof(schema), "Xml Schema cannot be null");
@@ -36,6 +37,7 @@ namespace xsd2c.Generator
             CodeModifiers = new List<ICodeModifier>();
             _options = options;
             SchemaImporterExtensions = new SchemaImporterExtensionCollection();
+            _errors = new List<GenerationError>();
 
             CompileSchema(schema);
             PreProcessSchemas();
@@ -47,6 +49,8 @@ namespace xsd2c.Generator
 
         public ICollection<ICodeModifier> CodeModifiers { get; }
 
+        public IReadOnlyCollection<GenerationError> Errors => _errors;
+
         public SchemaImporterExtensionCollection SchemaImporterExtensions { get; }
 
         #endregion
@@ -57,7 +61,6 @@ namespace xsd2c.Generator
         {
             if (schema.IsCompiled)
                 return;
-            Trace.TraceInformation("Compiling schema");
             var set = new XmlSchemaSet();
             set.Add(schema);
             set.CompilationSettings.EnableUpaCheck = false;
@@ -66,7 +69,7 @@ namespace xsd2c.Generator
 
         public void Generate(TextWriter textWriter)
         {
-            var xmlSchemas = new XmlSchemas {_schema};
+            var xmlSchemas = new XmlSchemas { _schema };
             foreach (var s in _schemaList)
                 xmlSchemas.Add(s);
 
@@ -76,20 +79,15 @@ namespace xsd2c.Generator
 
             var codeExporter = new XmlCodeExporter(_codeNamespace, new CodeCompileUnit(), _options);
 
-            try
-            {
-                GenerateForElements(schemaImporter, codeExporter);
-                GenerateForComplexTypes(schemaImporter, codeExporter);
-            }
-            catch (Exception ex)
-            {
-                Trace.TraceError(ex.ToString());
-                throw new ApplicationException("Error Loading Schema: ", ex);
-            }
-
+            GenerateForAll(schemaImporter, codeExporter);
             ModifyCodeDom();
 
-            var options = new CodeGeneratorOptions {VerbatimOrder = true};
+            var options = new CodeGeneratorOptions
+            {
+                VerbatimOrder = true,
+                BracingStyle = "C",
+                BlankLinesBetweenMembers = true,
+            };
             var provider = CodeDomProvider.CreateProvider("CSharp");
             provider.GenerateCodeFromNamespace(_codeNamespace, textWriter, options);
         }
@@ -100,39 +98,40 @@ namespace xsd2c.Generator
                 codeModifier.Execute(_codeNamespace);
         }
 
-        private void GenerateForComplexTypes(XmlSchemaImporter importer, XmlCodeExporter exporter)
+        private void GenerateForAll(XmlSchemaImporter importer, XmlCodeExporter exporter)
         {
             foreach (XmlSchemaObject type in _schema.SchemaTypes.Values)
-                if (type is XmlSchemaComplexType ct)
-                {
-                    var mapping = importer.ImportSchemaType(ct.QualifiedName);
-                    exporter.ExportTypeMapping(mapping);
-                }
-        }
-
-        private void GenerateForElements(XmlSchemaImporter importer, XmlCodeExporter exporter)
-        {
-            foreach (XmlSchemaElement element in _schema.Elements.Values)
             {
-                Trace.TraceInformation("Generating for element: {0}", element.Name);
+                XmlTypeMapping? mapping = null;
                 try
                 {
-                    var mapping = importer.ImportTypeMapping(element.QualifiedName);
-                    exporter.ExportTypeMapping(mapping);
+                    mapping = type switch
+                    {
+                        XmlSchemaComplexType ct => importer.ImportSchemaType(ct.QualifiedName),
+                        XmlSchemaElement elt => importer.ImportSchemaType(elt.QualifiedName),
+                        _ => null
+                    };
+
+                    if (mapping != null)
+                        exporter.ExportTypeMapping(mapping);
                 }
                 catch (Exception ex)
                 {
-                    Trace.TraceError(ex.ToString());
+                    ReportError(type, mapping, ex);
                 }
             }
         }
 
         private void PreProcessSchemas()
         {
-            Trace.Assert(_schema != null);
             foreach (var includedSchema in _schema.Includes.OfType<XmlSchemaExternal>())
                 if (includedSchema.Schema != null && !_schemaList.Contains(includedSchema.Schema))
                     _schemaList.Add(includedSchema.Schema);
+        }
+
+        private void ReportError(XmlSchemaObject? obj, XmlTypeMapping? mapping, Exception error)
+        {
+            _errors.Add(new GenerationError(obj, mapping, error));
         }
 
         #endregion

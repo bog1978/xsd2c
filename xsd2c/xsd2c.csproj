@@ -9,12 +9,7 @@
     <Copyright>Copyright ©  2021</Copyright>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <LangVersion>9</LangVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugType>full</DebugType>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
@@ -25,15 +20,10 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Test\Configuration.xsd">
-      <Generator>XsdToClasses</Generator>
-      <LastGenOutput>Configuration.Generated.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <None Include="Test\Graph.xsd">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="Test\Configuration.xsd"/>
+    <None Include="Test\Graph.xsd"/>
+    <None Include="Test\xsdschema.xsd"/>
+    <None Include="Test\xslt.xsd"/>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Test\Configuration.g.cs">
@@ -41,6 +31,12 @@
     </Compile>
     <Compile Update="Test\Graph.g.cs">
       <DependentUpon>Graph.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Test\xsdschema.g.cs">
+      <DependentUpon>xsdschema.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Test\xslt.g.cs">
+      <DependentUpon>xslt.xsd</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

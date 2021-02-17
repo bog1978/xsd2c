@@ -154,7 +154,11 @@ namespace xsd2c.Generator
             return default;
         }
 
-        public virtual TResult Visit(CodeTypeReferenceExpression regionDirective, TArg arg) => throw new NotImplementedException();
+        public virtual TResult Visit(CodeTypeReferenceExpression code, TArg arg)
+        {
+            code.Type.Accept(this, arg);
+            return default;
+        }
 
         public virtual TResult Visit(CodeVariableReferenceExpression code, TArg arg) => default;
 
@@ -246,7 +250,24 @@ namespace xsd2c.Generator
 
         public virtual TResult Visit(CodeStatement code, TArg arg) => throw new NotImplementedException();
 
-        public virtual TResult Visit(CodeConstructor regionDirective, TArg arg) => throw new NotImplementedException();
+        public virtual TResult Visit(CodeConstructor code, TArg arg)
+        {
+            code.StartDirectives.AcceptAll(this, arg);
+            code.BaseConstructorArgs.AcceptAll(this, arg);
+            code.ChainedConstructorArgs.AcceptAll(this, arg);
+            code.CustomAttributes.AcceptAll(this, arg);
+            code.Comments.AcceptAll(this, arg);
+            code.ImplementationTypes.AcceptAll(this, arg);
+            code.LinePragma.Accept(this, arg);
+            code.Parameters.AcceptAll(this, arg);
+            code.PrivateImplementationType.Accept(this, arg);
+            code.ReturnType.Accept(this, arg);
+            code.ReturnTypeCustomAttributes.AcceptAll(this, arg);
+            code.Statements.AcceptAll(this, arg);
+            code.TypeParameters.AcceptAll(this, arg);
+            code.EndDirectives.AcceptAll(this, arg);
+            return default;
+        }
 
         public virtual TResult Visit(CodeEntryPointMethod regionDirective, TArg arg) => throw new NotImplementedException();
 

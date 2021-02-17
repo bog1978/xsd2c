@@ -4,6 +4,43 @@ namespace xsd2c.Generator
 {
     public static class CodeDomExt
     {
+        #region Другое
+
+        public static TResult Accept<TArg, TResult>(this CodeAttributeDeclaration code, CodeDomVisitor<TArg, TResult> visitor, TArg arg) =>
+            visitor.Visit(code, arg);
+
+        public static TResult Accept<TArg, TResult>(this CodeAttributeArgument code, CodeDomVisitor<TArg, TResult> visitor, TArg arg) =>
+            visitor.Visit(code, arg);
+
+        public static TResult Accept<TArg, TResult>(this CodeLinePragma code, CodeDomVisitor<TArg, TResult> visitor, TArg arg) => visitor.Visit(code, arg);
+
+        public static TResult Accept<TArg, TResult>(this CodeObject obj, CodeDomVisitor<TArg, TResult> visitor, TArg arg)
+        {
+            if (obj == null)
+                return default;
+
+            visitor.Path.Push(obj);
+
+            var result = obj switch
+            {
+                CodeComment code => visitor.Visit(code, arg),
+                CodeNamespace code => visitor.Visit(code, arg),
+                CodeNamespaceImport code => visitor.Visit(code, arg),
+                CodeTypeParameter code => visitor.Visit(code, arg),
+                CodeTypeReference code => visitor.Visit(code, arg),
+                CodeCompileUnit code => code.Accept(visitor, arg),
+                CodeDirective code => code.Accept(visitor, arg),
+                CodeExpression code => code.Accept(visitor, arg),
+                CodeStatement code => code.Accept(visitor, arg),
+                CodeTypeMember code => code.Accept(visitor, arg),
+                _ => visitor.Visit(obj, arg)
+            };
+
+            visitor.Path.Pop();
+
+            return result;
+        }
+
         public static void AcceptAll<TArg, TResult>(this CodeAttributeDeclarationCollection items, CodeDomVisitor<TArg, TResult> visitor, TArg arg)
         {
             if (items != null)
@@ -88,110 +125,100 @@ namespace xsd2c.Generator
                     item.Accept(visitor, arg);
         }
 
-        public static TResult Accept<TArg, TResult>(this CodeAttributeDeclaration code, CodeDomVisitor<TArg, TResult> visitor, TArg arg) => visitor.Visit(code, arg);
-
-        public static TResult Accept<TArg, TResult>(this CodeAttributeArgument code, CodeDomVisitor<TArg, TResult> visitor, TArg arg) => visitor.Visit(code, arg);
-
-        public static TResult Accept<TArg, TResult>(this CodeLinePragma code, CodeDomVisitor<TArg, TResult> visitor, TArg arg) => visitor.Visit(code, arg);
-
-        public static TResult Accept<TArg, TResult>(this CodeObject obj, CodeDomVisitor<TArg, TResult> visitor, TArg arg)
-        {
-            if (obj == null)
-                return default;
-
-            visitor.Path.Push(obj);
-
-            var result = obj switch
+        private static TResult Accept<TArg, TResult>(this CodeDirective code, CodeDomVisitor<TArg, TResult> visitor, TArg arg) =>
+            code switch
             {
-                CodeComment code => visitor.Visit(code, arg),
-                CodeCompileUnit code => code switch
-                {
-                    CodeSnippetCompileUnit c1 => visitor.Visit(c1, arg),
-                    _ => visitor.Visit(code, arg)
-                },
-                CodeDirective code => code switch
-                {
-                    CodeChecksumPragma c1 => visitor.Visit(c1, arg),
-                    CodeRegionDirective c1 => visitor.Visit(c1, arg),
-                    _ => visitor.Visit(code, arg)
-                },
-                CodeExpression code => code switch
-                {
-                    CodeArgumentReferenceExpression c1 => visitor.Visit(c1, arg),
-                    CodeArrayCreateExpression c1 => visitor.Visit(c1, arg),
-                    CodeArrayIndexerExpression c1 => visitor.Visit(c1, arg),
-                    CodeBaseReferenceExpression c1 => visitor.Visit(c1, arg),
-                    CodeBinaryOperatorExpression c1 => visitor.Visit(c1, arg),
-                    CodeCastExpression c1 => visitor.Visit(c1, arg),
-                    CodeDefaultValueExpression c1 => visitor.Visit(c1, arg),
-                    CodeDelegateCreateExpression c1 => visitor.Visit(c1, arg),
-                    CodeDelegateInvokeExpression c1 => visitor.Visit(c1, arg),
-                    CodeDirectionExpression c1 => visitor.Visit(c1, arg),
-                    CodeEventReferenceExpression c1 => visitor.Visit(c1, arg),
-                    CodeFieldReferenceExpression c1 => visitor.Visit(c1, arg),
-                    CodeIndexerExpression c1 => visitor.Visit(c1, arg),
-                    CodeMethodInvokeExpression c1 => visitor.Visit(c1, arg),
-                    CodeMethodReferenceExpression c1 => visitor.Visit(c1, arg),
-                    CodeObjectCreateExpression c1 => visitor.Visit(c1, arg),
-                    CodeParameterDeclarationExpression c1 => visitor.Visit(c1, arg),
-                    CodePrimitiveExpression c1 => visitor.Visit(c1, arg),
-                    CodePropertyReferenceExpression c1 => visitor.Visit(c1, arg),
-                    CodePropertySetValueReferenceExpression c1 => visitor.Visit(c1, arg),
-                    CodeSnippetExpression c1 => visitor.Visit(c1, arg),
-                    CodeThisReferenceExpression c1 => visitor.Visit(c1, arg),
-                    CodeTypeOfExpression c1 => visitor.Visit(c1, arg),
-                    CodeTypeReferenceExpression c1 => visitor.Visit(c1, arg),
-                    CodeVariableReferenceExpression c1 => visitor.Visit(c1, arg),
-                    _ => visitor.Visit(code, arg)
-                },
-                CodeNamespace code => visitor.Visit(code, arg),
-                CodeNamespaceImport code => visitor.Visit(code, arg),
-                CodeStatement code => code switch
-                {
-                    CodeAssignStatement c1 => visitor.Visit(c1, arg),
-                    CodeAttachEventStatement c1 => visitor.Visit(c1, arg),
-                    CodeCommentStatement c1 => visitor.Visit(c1, arg),
-                    CodeConditionStatement c1 => visitor.Visit(c1, arg),
-                    CodeExpressionStatement c1 => visitor.Visit(c1, arg),
-                    CodeGotoStatement c1 => visitor.Visit(c1, arg),
-                    CodeIterationStatement c1 => visitor.Visit(c1, arg),
-                    CodeLabeledStatement c1 => visitor.Visit(c1, arg),
-                    CodeMethodReturnStatement c1 => visitor.Visit(c1, arg),
-                    CodeRemoveEventStatement c1 => visitor.Visit(c1, arg),
-                    CodeSnippetStatement c1 => visitor.Visit(c1, arg),
-                    CodeThrowExceptionStatement c1 => visitor.Visit(c1, arg),
-                    CodeTryCatchFinallyStatement c1 => visitor.Visit(c1, arg),
-                    CodeVariableDeclarationStatement c1 => visitor.Visit(c1, arg),
-                    _ => visitor.Visit(code, arg)
-                },
-                CodeTypeMember code => code switch
-                {
-                    CodeMemberEvent c1 => visitor.Visit(c1, arg),
-                    CodeMemberField c1 => visitor.Visit(c1, arg),
-                    CodeMemberMethod c1 => c1 switch
-                    {
-                        CodeConstructor c2 => visitor.Visit(c2, arg),
-                        CodeEntryPointMethod c2 => visitor.Visit(c2, arg),
-                        CodeTypeConstructor c2 => visitor.Visit(c2, arg),
-                        _ => visitor.Visit(c1, arg)
-                    },
-                    CodeMemberProperty c1 => visitor.Visit(c1, arg),
-                    CodeSnippetTypeMember c1 => visitor.Visit(c1, arg),
-                    CodeTypeDeclaration c1 => c1 switch
-                    {
-                        CodeTypeDelegate c2 => visitor.Visit(c2, arg),
-                        _ => visitor.Visit(c1, arg)
-                    },
-                    _ => visitor.Visit(code, arg)
-                },
-                CodeTypeParameter code => visitor.Visit(code, arg),
-                CodeTypeReference code => visitor.Visit(code, arg),
-                _ => visitor.Visit(obj, arg)
+                CodeChecksumPragma c => visitor.Visit(c, arg),
+                CodeRegionDirective c => visitor.Visit(c, arg),
+                _ => visitor.Visit(code, arg)
             };
 
-            visitor.Path.Pop();
+        private static TResult Accept<TArg, TResult>(this CodeCompileUnit code, CodeDomVisitor<TArg, TResult> visitor, TArg arg) =>
+            code switch
+            {
+                CodeSnippetCompileUnit c => visitor.Visit(c, arg),
+                _ => visitor.Visit(code, arg)
+            };
 
-            return result;
-        }
+        private static TResult Accept<TArg, TResult>(this CodeTypeMember code, CodeDomVisitor<TArg, TResult> visitor, TArg arg) =>
+            code switch
+            {
+                CodeMemberEvent c => visitor.Visit(c, arg),
+                CodeMemberField c => visitor.Visit(c, arg),
+                CodeMemberProperty c => visitor.Visit(c, arg),
+                CodeSnippetTypeMember c => visitor.Visit(c, arg),
+                CodeMemberMethod c => c.Accept(visitor, arg),
+                CodeTypeDeclaration c => c.Accept(visitor, arg),
+                _ => visitor.Visit(code, arg)
+            };
+
+        private static TResult Accept<TArg, TResult>(this CodeTypeDeclaration code, CodeDomVisitor<TArg, TResult> visitor, TArg arg) =>
+            code switch
+            {
+                CodeTypeDelegate c => visitor.Visit(c, arg),
+                _ => visitor.Visit(code, arg)
+            };
+
+        private static TResult Accept<TArg, TResult>(this CodeMemberMethod code, CodeDomVisitor<TArg, TResult> visitor, TArg arg) =>
+            code switch
+            {
+                CodeConstructor c => visitor.Visit(c, arg),
+                CodeEntryPointMethod c => visitor.Visit(c, arg),
+                CodeTypeConstructor c => visitor.Visit(c, arg),
+                _ => visitor.Visit(code, arg)
+            };
+
+        private static TResult Accept<TArg, TResult>(this CodeStatement code, CodeDomVisitor<TArg, TResult> visitor, TArg arg) =>
+            code switch
+            {
+                CodeAssignStatement c => visitor.Visit(c, arg),
+                CodeAttachEventStatement c => visitor.Visit(c, arg),
+                CodeCommentStatement c => visitor.Visit(c, arg),
+                CodeConditionStatement c => visitor.Visit(c, arg),
+                CodeExpressionStatement c => visitor.Visit(c, arg),
+                CodeGotoStatement c => visitor.Visit(c, arg),
+                CodeIterationStatement c => visitor.Visit(c, arg),
+                CodeLabeledStatement c => visitor.Visit(c, arg),
+                CodeMethodReturnStatement c => visitor.Visit(c, arg),
+                CodeRemoveEventStatement c => visitor.Visit(c, arg),
+                CodeSnippetStatement c => visitor.Visit(c, arg),
+                CodeThrowExceptionStatement c => visitor.Visit(c, arg),
+                CodeTryCatchFinallyStatement c => visitor.Visit(c, arg),
+                CodeVariableDeclarationStatement c => visitor.Visit(c, arg),
+                _ => visitor.Visit(code, arg)
+            };
+
+        private static TResult Accept<TArg, TResult>(this CodeExpression code, CodeDomVisitor<TArg, TResult> visitor, TArg arg) =>
+            code switch
+            {
+                CodeArgumentReferenceExpression c => visitor.Visit(c, arg),
+                CodeArrayCreateExpression c => visitor.Visit(c, arg),
+                CodeArrayIndexerExpression c => visitor.Visit(c, arg),
+                CodeBaseReferenceExpression c => visitor.Visit(c, arg),
+                CodeBinaryOperatorExpression c => visitor.Visit(c, arg),
+                CodeCastExpression c => visitor.Visit(c, arg),
+                CodeDefaultValueExpression c => visitor.Visit(c, arg),
+                CodeDelegateCreateExpression c => visitor.Visit(c, arg),
+                CodeDelegateInvokeExpression c => visitor.Visit(c, arg),
+                CodeDirectionExpression c => visitor.Visit(c, arg),
+                CodeEventReferenceExpression c => visitor.Visit(c, arg),
+                CodeFieldReferenceExpression c => visitor.Visit(c, arg),
+                CodeIndexerExpression c => visitor.Visit(c, arg),
+                CodeMethodInvokeExpression c => visitor.Visit(c, arg),
+                CodeMethodReferenceExpression c => visitor.Visit(c, arg),
+                CodeObjectCreateExpression c => visitor.Visit(c, arg),
+                CodeParameterDeclarationExpression c => visitor.Visit(c, arg),
+                CodePrimitiveExpression c => visitor.Visit(c, arg),
+                CodePropertyReferenceExpression c => visitor.Visit(c, arg),
+                CodePropertySetValueReferenceExpression c => visitor.Visit(c, arg),
+                CodeSnippetExpression c => visitor.Visit(c, arg),
+                CodeThisReferenceExpression c => visitor.Visit(c, arg),
+                CodeTypeOfExpression c => visitor.Visit(c, arg),
+                CodeTypeReferenceExpression c => visitor.Visit(c, arg),
+                CodeVariableReferenceExpression c => visitor.Visit(c, arg),
+                _ => visitor.Visit(code, arg)
+            };
+
+        #endregion
     }
 }

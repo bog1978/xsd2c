@@ -30,6 +30,20 @@ namespace xsd2c
                     }
                 };
                 generator.Generate(codeWriter);
+                foreach (var error in generator.Errors)
+                {
+                    var oldColor = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    var err = error.Error;
+                    var indent = "";
+                    while (err != null)
+                    {
+                        Console.WriteLine($"{indent}{err.Message}");
+                        indent += "   ";
+                        err = err.InnerException;
+                    }
+                    Console.ForegroundColor = oldColor;
+                }
             }
         }
     }
