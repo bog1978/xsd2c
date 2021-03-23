@@ -20,10 +20,13 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Test\Configuration.xsd"/>
-    <None Include="Test\Graph.xsd"/>
-    <None Include="Test\xsdschema.xsd"/>
-    <None Include="Test\xslt.xsd"/>
+    <None Include="Test\Configuration.xsd" />
+    <None Include="Test\Graph.xsd" />
+    <None Include="Test\xsdschema.xsd" />
+    <None Include="Test\xslt.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Infocom.XsdToClasses\Infocom.XsdToClasses.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Test\Configuration.g.cs">

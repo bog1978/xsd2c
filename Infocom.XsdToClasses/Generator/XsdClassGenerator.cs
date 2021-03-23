@@ -11,7 +11,7 @@ using System.Xml.Serialization.Advanced;
 
 namespace xsd2c.Generator
 {
-    internal class XsdClassGenerator
+    public class XsdClassGenerator
     {
         #region Константы и поля
 

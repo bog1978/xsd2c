@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net452</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <LangVersion>9</LangVersion>
+    <Version>1.0.4</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="*.binlog" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Infocom.XsdToClasses\Infocom.XsdToClasses.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.Build.Framework" />
+    <Reference Include="Microsoft.Build.Utilities.v4.0" />
+  </ItemGroup>
+
+  <Target Name="CopyNuGetPackage" AfterTargets="Pack">
+    <Copy SourceFiles="@(NuGetPackOutput)" DestinationFolder="D:\NuGet" />   
+  </Target>
+
+</Project>

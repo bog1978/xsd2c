@@ -3,7 +3,7 @@ using xsd2c.Generator;
 
 namespace xsd2c.Modifiers
 {
-    internal class SimplifyCodeModifier : ICodeModifier
+    public class SimplifyCodeModifier : ICodeModifier
     {
         public void Execute(CodeNamespace codeNamespace)
         {

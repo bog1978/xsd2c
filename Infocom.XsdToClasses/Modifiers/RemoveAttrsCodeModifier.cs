@@ -3,7 +3,7 @@ using xsd2c.Generator;
 
 namespace xsd2c.Modifiers
 {
-    internal class RemoveAttrsCodeModifier : ICodeModifier
+    public class RemoveAttrsCodeModifier : ICodeModifier
     {
         public void Execute(CodeNamespace codeNamespace)
         {

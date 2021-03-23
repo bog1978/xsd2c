@@ -5,7 +5,7 @@ using xsd2c.Generator;
 
 namespace xsd2c.Modifiers
 {
-    internal class ImplementVisitorCodeModifier : ICodeModifier
+    public class ImplementVisitorCodeModifier : ICodeModifier
     {
         public void Execute(CodeNamespace codeNamespace)
         {
