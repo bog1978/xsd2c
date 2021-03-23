@@ -1,0 +1,18 @@
+﻿<Project TreatAsLocalProperty="TaskFolder;TaskAssembly">
+
+  <PropertyGroup>
+    <TaskFolder Condition=" '$(MSBuildRuntimeType)' != 'net452' ">net452</TaskFolder>
+    <TaskAssembly>$(MSBuildThisFileDirectory)..\tasks\$(TaskFolder)\xsd2c.MsBuild.dll</TaskAssembly>
+  </PropertyGroup>
+
+  <UsingTask TaskName="xsd2c.MsBuild.XsdTask" AssemblyFile="$(TaskAssembly)" />
+
+  <ItemGroup>
+    <XsdFile Include="**/*.xsd" />
+  </ItemGroup>
+  
+  <Target Name="CallXsdToClassesGenerator" BeforeTargets="PreBuildEvent">
+    <XsdTask Schemas="@(XsdFile)" />
+  </Target>
+
+</Project>

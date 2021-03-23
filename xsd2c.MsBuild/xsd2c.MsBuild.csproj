@@ -2,13 +2,37 @@
 
   <PropertyGroup>
     <TargetFramework>net452</TargetFramework>
+    <!-- Suppresses the warnings about the package not having assemblies in lib/*/.dll.-->
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+    <!-- Change the default location where NuGet will put the build output -->
+    <BuildOutputTargetFolder>tasks</BuildOutputTargetFolder>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <LangVersion>9</LangVersion>
-    <Version>1.0.4</Version>
+    <Version>1.0.10</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="*.binlog" />
+    <Compile Remove="Generator\**" />
+    <Compile Remove="Modifiers\**" />
+    <Compile Remove="Visitors\**" />
+    <EmbeddedResource Remove="Generator\**" />
+    <EmbeddedResource Remove="Modifiers\**" />
+    <EmbeddedResource Remove="Visitors\**" />
+    <None Remove="Generator\**" />
+    <None Remove="Modifiers\**" />
+    <None Remove="Visitors\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="build\xsd2c.MsBuild.props" PackagePath="build\" />
+    <Content Include="$(OutDir)Infocom.XsdToClasses.dll">
+      <Pack>true</Pack>
+      <PackagePath>$(BuildOutputTargetFolder)\$(TargetFramework)</PackagePath>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,7 +45,7 @@
   </ItemGroup>
 
   <Target Name="CopyNuGetPackage" AfterTargets="Pack">
-    <Copy SourceFiles="@(NuGetPackOutput)" DestinationFolder="D:\NuGet" />   
+    <Copy SourceFiles="@(NuGetPackOutput)" DestinationFolder="D:\NuGet" />
   </Target>
 
 </Project>

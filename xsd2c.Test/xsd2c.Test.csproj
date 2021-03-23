@@ -4,19 +4,8 @@
     <TargetFramework>net452</TargetFramework>
   </PropertyGroup>
 
-  <UsingTask TaskName="xsd2c.MsBuild.XsdTask" AssemblyFile="$(SolutionDir)xsd2c.MsBuild\bin\Debug\net452\xsd2c.MsBuild.dll">
-  </UsingTask>
-
   <ItemGroup>
-    <XsdFile Include="**/*.xsd" />
+    <PackageReference Include="xsd2c.MsBuild" Version="1.0.10" />
   </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="xsd2c.MsBuild" Version="1.0.4" />
-  </ItemGroup>
-  
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <XsdTask Schemas="@(XsdFile)" />
-  </Target>
   
 </Project>
