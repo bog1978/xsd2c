@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="xsd2c.MsBuild" Version="1.0.10" />
+    <PackageReference Include="xsd2c.MsBuild" Version="1.0.13" />
   </ItemGroup>
   
 </Project>

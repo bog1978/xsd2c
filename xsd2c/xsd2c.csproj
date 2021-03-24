@@ -26,7 +26,7 @@
     <None Include="Test\xslt.xsd" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Infocom.XsdToClasses\Infocom.XsdToClasses.csproj" />
+    <ProjectReference Include="..\xsd2c.MsBuild\xsd2c.MsBuild.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Test\Configuration.g.cs">
